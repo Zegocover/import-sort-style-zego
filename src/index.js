@@ -1,5 +1,3 @@
-import { readdirSync } from "fs";
-
 const fixedOrder = ["react", "react-relay", "prop-types"];
 
 export default function(styleApi) {
@@ -10,6 +8,7 @@ export default function(styleApi) {
     dotSegmentCount,
     hasNoMember,
     isAbsoluteModule,
+    isInstalledModule,
     isNodeModule,
     isRelativeModule,
     moduleName,
@@ -17,10 +16,6 @@ export default function(styleApi) {
     naturally
   } = styleApi;
 
-  const modules = readdirSync("./node_modules");
-
-  const isFromNodeModules = imported =>
-    modules.indexOf(imported.moduleName.split("/")[0]) !== -1;
   const isReactEcosystemModule = imported =>
     Boolean(
       imported.moduleName.match(
@@ -91,19 +86,11 @@ export default function(styleApi) {
 
     // import uniq from 'lodash/uniq';
     {
-      match: isFromNodeModules,
+      match: isInstalledModule(__filename),
       sort: moduleName(naturally),
       sortNamedMembers: alias(unicode)
     },
     { separator: true },
-
-    // // import Component from "components/Component.jsx";
-    // {
-    //   match: isAbsoluteModule,
-    //   sort: moduleName(naturally),
-    //   sortNamedMembers: alias(unicode)
-    // },
-    // { separator: true },
 
     // import { foo } from "@zego/util.js";
     {

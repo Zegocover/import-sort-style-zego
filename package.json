@@ -1,6 +1,6 @@
 {
   "name": "import-sort-style-zego",
-  "version": "5.1.0",
+  "version": "6.0.0",
   "description": "An import-sort style respecting Zego's house style",
   "main": "lib/index.js",
   "scripts": {
